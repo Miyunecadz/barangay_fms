@@ -15,7 +15,7 @@
             <!-- Page title actions -->
             <div class="col-auto ms-auto d-print-none">
             <div class="btn-list">
-                <a href="#" class="btn btn-white">
+                <a href="#" class="btn btn-white"  data-bs-toggle="modal" data-bs-target="#modal-upload-file" data-backdrop="static" data-keyboard="false">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-upload" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383z"/>
                         <path fill-rule="evenodd" d="M7.646 4.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V14.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3z"/>
@@ -25,7 +25,7 @@
                         Upload File
                     </span>
                 </a>
-                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-new-directory">
+                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-new-directory" data-backdrop="static" data-keyboard="false">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder-plus" viewBox="0 0 16 16">
                         <path d="m.5 3 .04.87a1.99 1.99 0 0 0-.342 1.311l.637 7A2 2 0 0 0 2.826 14H9v-1H2.826a1 1 0 0 1-.995-.91l-.637-7A1 1 0 0 1 2.19 4h11.62a1 1 0 0 1 .996 1.09L14.54 8h1.005l.256-2.819A2 2 0 0 0 13.81 3H9.828a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 6.172 1H2.5a2 2 0 0 0-2 2zm5.672-1a1 1 0 0 1 .707.293L7.586 3H2.19c-.24 0-.47.042-.683.12L1.5 2.98a1 1 0 0 1 1-.98h3.672z"/>
                         <path d="M13.5 10a.5.5 0 0 1 .5.5V12h1.5a.5.5 0 1 1 0 1H14v1.5a.5.5 0 1 1-1 0V13h-1.5a.5.5 0 0 1 0-1H13v-1.5a.5.5 0 0 1 .5-.5z"/>
@@ -43,6 +43,7 @@
     <div class="page-body">
         <div class="container-xl">
             <div class="row row-deck row-cards">
+
 
                     <div class="col-sm-6 col-lg-3" style="cursor: pointer" wire:click.prevent="goBack()">
                         <div class="card">
@@ -70,7 +71,9 @@
                                 <div class="dropdown">
                                     <a class="dropdown-toggle text-muted" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
                                     <div class="dropdown-menu dropdown-menu-end">
-                                        <a class="dropdown-item" href="#">Delete</a>
+                                        <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modal-delete" data-backdrop="static" data-keyboard="false" wire:click="onDeleteState('{{$directory}}', 'directory')">Delete</a>
+
+                                        {{-- <a class="dropdown-item" href="#" wire:click="delete('{{$directory}}', 'directory')">Delete</a> --}}
                                     </div>
                                 </div>
                                 </div>
@@ -91,8 +94,15 @@
                             <div class="dropdown">
                                 <a class="dropdown-toggle text-muted" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
                                 <div class="dropdown-menu dropdown-menu-end">
-                                    <a class="dropdown-item" href="#">Download</a>
-                                    <a class="dropdown-item" href="#">Delete</a>
+                                    <form action="{{route('file.open')}}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="file" id="file" value="{{$file}}">
+                                        <button type="submit" class="dropdown-item">Preview</button>
+                                    </form>
+
+                                    <a class="dropdown-item" href="#" wire:click.prevent="download('{{$file}}')">Download</a>
+                                    <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modal-delete" data-backdrop="static" data-keyboard="false" wire:click="onDeleteState('{{$file}}', 'file')">Delete</a>
+                                    {{-- <a class="dropdown-item" href="#" wire:click="delete('{{$file}}', 'file')">Delete</a> --}}
                                 </div>
                             </div>
                             </div>
@@ -115,24 +125,105 @@
         </div>
     </div>
 
-    <div class="modal modal-blur fade" id="modal-new-directory" tabindex="-1" role="dialog" aria-hidden="true">
+    {{-- New Directory --}}
+    <div class="modal modal-blur fade" id="modal-new-directory" tabindex="-1" role="dialog" aria-hidden="true" wire:ignore.self >
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title">New Directory</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <button type="button" class="btn-close" wire:click.prevent="close('modal-new-directory')" aria-label="Close" ></button>
             </div>
             <div class="modal-body">
               <label for="directory">Directory name</label>
-              <input type="text" name="directory" id="directory" class="form-control">
+              <input type="text" name="directory" id="directory" wire:model.debounce.500ms="directory_name" class="form-control">
+              @error('directory_name')
+                  <small class="text-danger">{{$message}}</small>
+              @enderror
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Create</button>
+              <button type="button" class="btn me-auto" wire:click.prevent="close('modal-new-directory')" >Close</button>
+              <button type="button" class="btn btn-primary" wire:click.prevent="createDirectory()")>Create</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    {{-- Upload File --}}
+    <div class="modal modal-blur fade" id="modal-upload-file" tabindex="-1" role="dialog" aria-hidden="true" wire:ignore.self >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">File Upload</h5>
+              <button type="button" class="btn-close" wire:click.prevent="close('modal-upload-file')" aria-label="Close" ></button>
+            </div>
+            <div class="modal-body">
+                <div class="file-upload">
+                    <input type="file" wire:loading.remove name="directory" id="directory" wire:model="file" class="form-control">
+                    <div class="file-upload-loading-state" wire:loading wire:target="file">
+                        <p>Uploading...</p>
+                    </div>
+                    @error('file')
+                        @if ($message == 'validation.max.file')
+                            <small class="text-danger">File max upload is 15MB</small>
+                        @else
+                            <small class="text-danger">{{$message}}</small>
+                        @endif
+                    @enderror
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn me-auto" wire:click.prevent="close('modal-upload-file')" >Close</button>
+
+              <button type="button" class="btn btn-primary" wire:loading wire:target="file" disabled>Create</button>
+
+              <button type="button" class="btn btn-primary" wire:click.prevent="saveFile()" wire:loading.remove wire:target="file">Create</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    {{-- Delete File --}}
+    <div class="modal modal-blur fade" id="modal-delete" tabindex="-1" role="dialog" aria-hidden="true" wire:ignore.self >
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <div class="modal-status bg-danger"></div>
+          <div class="modal-body text-center py-4">
+            <!-- Download SVG icon from http://tabler-icons.io/i/alert-triangle -->
+            <!-- SVG icon code with class="mb-2 text-danger icon-lg" -->
+            <h3>Are you sure?</h3>
+            <div class="text-muted">Do you really want to remove this {{$delete_type}}? What you've done cannot be undone.</div>
+            <div class="form-group mt-2">
+                <input type="password" name="master_key" id="master_key" placeholder="Enter master key" class="form-control" wire:model.lazy="master_key">
+                @error('master_key')
+                    <small class="text-danger">{{$message}}</small>
+                @enderror
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div class="w-100">
+              <div class="row">
+                <div class="col">
+                    <a href="#" class="btn w-100" data-bs-dismiss="modal">
+                    Cancel
+                    </a>
+                </div>
+                <div class="col" wire:loading.remove wire:target="delete()">
+                    <a href="#"  class="btn btn-danger w-100"  wire:click.prevent="delete()">
+                    Delete
+                    </a>
+                </div>
+                <div class="col" wire:loading wire:target="delete()">
+                    <a href="#"  class="btn btn-danger w-100"  wire:click.prevent="delete()">
+                    Delete
+                    </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
     {{-- <div class="modal modal-blur fade" id="modal-new-directory" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -262,5 +353,9 @@
             </div>
           </div>
     </div> --}}
-
+    <script>
+        window.addEventListener('modalDismiss', event => {
+            $(`#${event.detail.modalName}`).modal('hide')
+        })
+    </script>
 </div>
