@@ -19,6 +19,9 @@
                 <button class="btn btn-primary my-2" onclick="printJS({printable: 'paper', type: 'html', style: '@page { size: A4 portrait; }', css: '{{asset('css/app.css')}}' })">Print</button>
             </div>
             <div class="card paper" id="paper" style="width: 21cm; height: 29cm;">
+
+                <img src="{{asset('images/barangayzone1-logo.svg')}}" height="100" width="100" style="position:absolute;top:50px;left:20%" alt="" srcset="">
+
                 <div class="paper-header text text-center mt-5">
                     <p class="mb-0"><b>Republic of the Philippines</b></p>
                     <p class="mb-0"><b>PROVINCE OF SOUTHERN LEYTE</b></p>
