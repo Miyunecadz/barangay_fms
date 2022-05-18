@@ -11,11 +11,11 @@
                             <img class="ms-1 mt-1" src="{{asset('images/barangayzone1-logo.svg')}}" height="100" width="100" alt="" srcset="">
                         </div>
                     </div>
-                    <h4 class="text-center">Barangay Zone 1</h4>
+                    <h5 class="text-center text-muted">Barangay Zone 1, Sogod</h5>
                 </div>
 
-                <div class="mt-5">
-                    <h2 class="card-title text-center mb-4">Login to your account</h2>
+                <div class="mt-5 pt-3">
+                    <h1 class="card-title text-center mb-4">Login to your account</h1>
                     @if ($errorCredential)
                           <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show mt-3" role="alert">
                               <svg xmlns="http://www.w3.org/2000/svg" class="me-2" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle" viewBox="0 0 16 16">
@@ -28,15 +28,15 @@
                           </div>
                       @endif
                     <div class="mb-3">
-                      <label class="form-label">Username</label>
-                      <input type="text" class="form-control" wire:model.lazy="username" placeholder="Enter username">
+                      <label class="form-label" for="username">Username</label>
+                      <input type="text" id="username" class="form-control" wire:model.lazy="username" placeholder="Enter username">
                     </div>
                     <div class="mb-2">
-                      <label class="form-label">
+                      <label class="form-label" for="password">
                         Password
                       </label>
                       <div class="input-group input-group-flat">
-                        <input type="password" class="form-control" wire:model.lazy="password"  placeholder="Password"  autocomplete="off">
+                        <input type="password" id="password" class="form-control" wire:model.lazy="password"  placeholder="Password"  autocomplete="off">
                       </div>
                     </div>
                     <div class="form-footer d-flex justify-content-center">
