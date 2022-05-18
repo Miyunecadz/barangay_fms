@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('firstname');
             $table->string('middlename')->nullable();
             $table->string('lastname');
+            $table->string('household_number');
             $table->string('suffix')->nullable();
             $table->integer('age');
             $table->date('birth_date');

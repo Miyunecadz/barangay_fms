@@ -34,8 +34,16 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="household_number">Household Number</label>
+                            <input type="text" name="household_number" id="household_number" class="form-control" placeholder="xxx" wire:model="household_number">
+                            @error('household_number')
+                                <small class="text-danger">{{$message}}</small>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
                             <label for="contact_number">Contact Number</label>
-                            <input type="text" name="contact_number" id="contact_number" class="form-control" placeholder="Doe" wire:model="contact_number">
+                            <input type="text" name="contact_number" id="contact_number" class="form-control" placeholder="xxxx" wire:model="contact_number">
                             @error('contact_number')
                                 <small class="text-danger">{{$message}}</small>
                             @enderror

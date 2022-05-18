@@ -20,6 +20,7 @@ class ResidentUpdate extends Component
     public $gender;
     public $purok;
     public $contact_number;
+    public $household_number;
 
     public $isUpdating = false;
 
@@ -30,6 +31,7 @@ class ResidentUpdate extends Component
         'gender' => 'required',
         'purok' => 'required',
         'contact_number' => 'required|numeric',
+        'household_number' => 'required'
     ];
 
     protected $messages = [
@@ -41,6 +43,7 @@ class ResidentUpdate extends Component
         'purok.required' => 'Purok field is required!',
         'contact_number.required' => 'Contact Number is required',
         'contact_number.numeric' => 'Contact Number should be number',
+        'household_number.required' => 'Household Number is required!',
     ];
 
     public function update()
@@ -57,7 +60,8 @@ class ResidentUpdate extends Component
             'birth_date' => $this->birth_date,
             'gender' => $this->gender,
             'purok' => $this->purok,
-            'contact_number' => $this->contact_number
+            'contact_number' => $this->contact_number,
+            'household_number' => $this->household_number,
         ]);
         $this->isUpdating = false;
         $this->dispatchBrowserEvent('update');
@@ -72,6 +76,8 @@ class ResidentUpdate extends Component
         $this->birth_date = $this->resident->birth_date;
         $this->gender = $this->resident->gender;
         $this->purok = $this->resident->purok;
+        $this->household_number = $this->resident->household_number;
+        $this->contact_number = $this->resident->contact_number;
     }
 
     public function render()
