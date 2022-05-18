@@ -23,6 +23,7 @@ return new class extends Migration
             $table->date('birth_date');
             $table->string('gender');
             $table->string('purok');
+            $table->string('contact_number');
             $table->timestamps();
         });
     }

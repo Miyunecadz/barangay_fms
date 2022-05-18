@@ -19,6 +19,7 @@ class ResidentUpdate extends Component
     public $birth_date;
     public $gender;
     public $purok;
+    public $contact_number;
 
     public $isUpdating = false;
 
@@ -27,7 +28,8 @@ class ResidentUpdate extends Component
         'lastname' => 'required',
         'birth_date' => 'required|date',
         'gender' => 'required',
-        'purok' => 'required'
+        'purok' => 'required',
+        'contact_number' => 'required|numeric',
     ];
 
     protected $messages = [
@@ -36,7 +38,9 @@ class ResidentUpdate extends Component
         'birth_date.required' => 'Birth Date field is required!',
         'birth_date.date' => 'Birth Date field should be date!',
         'gender.required' => 'Gender field is required!',
-        'purok.required' => 'Purok field is required!'
+        'purok.required' => 'Purok field is required!',
+        'contact_number.required' => 'Contact Number is required',
+        'contact_number.numeric' => 'Contact Number should be number',
     ];
 
     public function update()
@@ -53,6 +57,7 @@ class ResidentUpdate extends Component
             'birth_date' => $this->birth_date,
             'gender' => $this->gender,
             'purok' => $this->purok,
+            'contact_number' => $this->contact_number
         ]);
         $this->isUpdating = false;
         $this->dispatchBrowserEvent('update');

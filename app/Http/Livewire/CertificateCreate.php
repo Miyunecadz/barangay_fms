@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Certificate;
+use Carbon\Carbon;
 use Livewire\Component;
 
 class CertificateCreate extends Component
@@ -21,7 +22,9 @@ class CertificateCreate extends Component
 
         Certificate::create([
             'name' => $this->name,
-            'or_number' => $this->orNumber
+            'or_number' => $this->orNumber,
+            'issued_date' => Carbon::createFromFormat('Y-m-d H:i:s', now('Asia/Manila'))->format('Y-m-d'),
+            'issued_time' => Carbon::createFromFormat('Y-m-d H:i:s', now('Asia/Manila'))->format('H:i:s')
         ]);
 
         $this->dispatchBrowserEvent('modalDismiss', ['modalName' => 'modal-new-record']);

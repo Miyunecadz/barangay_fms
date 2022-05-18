@@ -34,6 +34,14 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="contact_number">Contact Number</label>
+                            <input type="text" name="contact_number" id="contact_number" class="form-control" placeholder="Doe" wire:model="contact_number">
+                            @error('contact_number')
+                                <small class="text-danger">{{$message}}</small>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
                             <label for="birth_date">Birth Date</label>
                             <input type="date" name="birth_date" id="birthdate" wire:model="birth_date" class="form-control">
                             @error('birth_date')

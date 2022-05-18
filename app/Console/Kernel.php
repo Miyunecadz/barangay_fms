@@ -3,11 +3,8 @@
 namespace App\Console;
 
 use App\Jobs\AgeModifyJob;
-use App\Models\Resident;
-use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use Illuminate\Support\Facades\Storage;
 
 class Kernel extends ConsoleKernel
 {

@@ -21,7 +21,8 @@ class ResidentFactory extends Factory
             'lastname' => $this->faker->lastName(),
             'birth_date' => $this->faker->date(),
             'gender' => $this->faker->randomElement(['male', 'female']),
-            'purok' => $this->faker->randomElement(['Purok 1', 'Purok 2', 'Purok 3', 'Purok 4', 'Purok 5', 'Purok 6', 'Purok 7', 'Purok 8', 'Purok 9'])
+            'purok' => $this->faker->randomElement(['Purok 1', 'Purok 2', 'Purok 3', 'Purok 4', 'Purok 5', 'Purok 6', 'Purok 7', 'Purok 8', 'Purok 9']),
+            'contact_number' => '09178781045'
         ];
     }
 }

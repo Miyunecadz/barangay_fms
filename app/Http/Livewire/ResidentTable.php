@@ -89,6 +89,7 @@ final class ResidentTable extends PowerGridComponent
             ->addColumn('lastname')
             ->addColumn('suffix')
             ->addColumn('age')
+            ->addColumn('contact_number')
             ->addColumn('birth_date_formatted', function(Resident $model) {
                 return Carbon::parse($model->birth_date)->format('d/m/Y');
             })
@@ -153,6 +154,11 @@ final class ResidentTable extends PowerGridComponent
                 ->field('age')
                 ->sortable()
                 ->makeInputRange(),
+
+            Column::add()
+                ->title('Contact Number')
+                ->field('contact_number')
+                ->makeInputText(),
 
             Column::add()
                 ->title('GENDER')

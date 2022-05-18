@@ -18,8 +18,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('or_number');
-            $table->date('issued_date')->default(Carbon::createFromFormat('Y-m-d H:i:s', now('Asia/Manila'))->format('Y-m-d'));
-            $table->time('issued_time')->default(Carbon::createFromFormat('Y-m-d H:i:s', now('Asia/Manila'))->format('H:i:s'));
+            $table->date('issued_date');
+            $table->time('issued_time');
             $table->timestamps();
         });
     }

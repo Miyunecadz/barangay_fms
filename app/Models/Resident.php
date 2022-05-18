@@ -17,7 +17,8 @@ class Resident extends Model
         'age',
         'birth_date',
         'gender',
-        'purok'
+        'purok',
+        'contact_number'
     ];
 
 }
