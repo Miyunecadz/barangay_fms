@@ -13398,6 +13398,8 @@ body.no-transitions * {
   :root {
     scroll-behavior: smooth; } }
 
+
+
 body {
   margin: 0;
   font-family: var(--tblr-body-font-family);
@@ -13409,6 +13411,10 @@ body {
   background-color: var(--tblr-body-bg);
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+
+  .guest-body {
+    background-color: #dfdfdf !important;
+}
 
 hr, .hr {
   margin: 2rem 0;

@@ -9,7 +9,7 @@
     <script src="{{asset('js/app.js')}}"></script>
     @livewireStyles
 </head>
-<body>
+<body class="guest-body">
     <div class="page-wrapper">
         @yield('content')
     </div>
